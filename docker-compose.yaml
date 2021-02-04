@@ -1,0 +1,19 @@
+version: "3"
+
+volumes:
+  local_jenkins_data: {}
+
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.jenkins
+    image: jenkins/jenkins:lts
+    volumes:
+      - local_jenkins_data:/var/jenkins_home
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    ports:
+      - "8080:8080"
+      - "50000:50000"
